@@ -1,6 +1,8 @@
 #include <fstream>
 #include <sstream>
 #include "musculito.h"
+#include <iostream>
+
 
 eBusCliente BuscarCliente (std:: fstream& infileclientes, const sCliente ClienteBuscado )
 {
@@ -115,16 +117,175 @@ int idClase(std::fstream& infileclases, const sClases& claseBuscada)
         }
 }
 
+int verificarSuperposicion(std::fstream& infileasistencia, const sClases& claseBuscada, unsigned int idCliente) {
+        sAsistencia asistenciaActual;
 
+        infileasistencia.clear();  // Reiniciar el estado del archivo
+        infileasistencia.seekg(0, std::ios::beg);  // Mover el puntero al principio del archivo
+
+        std::string line;
+        while (getline(infileasistencia, line)) {
+            std::istringstream iss(line);
+            if (iss >> asistenciaActual.idCliente >> asistenciaActual.cantInscriptos) {
+                asistenciaActual.CursosInscriptos = new sInscripcion[asistenciaActual.cantInscriptos];
+                for (unsigned int i = 0; i < asistenciaActual.cantInscriptos; ++i) {
+                    if (!(iss >> asistenciaActual.CursosInscriptos[i].idCurso >> asistenciaActual.CursosInscriptos[i].fechaInscripcion)) {
+                        // Manejar un formato de archivo incorrecto
+                        std::cout << "Error en el formato del archivo de asistencias.\n";
+                        delete[] asistenciaActual.CursosInscriptos;  // Liberar la memoria asignada
+                        return -1;
+                    }
+                }
+
+                if (asistenciaActual.idCliente == idCliente) {
+                    // Verificar superposición de horarios
+                    for (unsigned int i = 0; i < asistenciaActual.cantInscriptos; ++i) {
+                        const auto& inscripcion = asistenciaActual.CursosInscriptos[i];
+
+                        // Modificar la llamada a verificarClase para pasar un objeto sClases
+                        int idClaseExistente = verificarClase(infileasistencia, claseBuscada);
+
+                        if (idClaseExistente != NoExisteClase && ExisteClase == inscripcion.idCurso) {
+                            // Superposición de horarios
+                            delete[] asistenciaActual.CursosInscriptos;  // Liberar la memoria asignada
+                            return idClaseExistente;
+                        }
+                    }
+                }
+
+                delete[] asistenciaActual.CursosInscriptos;  // Liberar la memoria asignada
+            }
+        }
+
+        // No hay superposición de horarios
+        return NoExisteClase;
+}
+
+/*
+int verificarSuperposicion(std::fstream& infileasistencia, const sClases& claseBuscada, unsigned int idCliente) {
+        sAsistencia asistenciaActual;
+
+        infileasistencia.clear();  // Reiniciar el estado del archivo
+        infileasistencia.seekg(0, std::ios::beg);  // Mover el puntero al principio del archivo
+
+        std::string line;
+        while (getline(infileasistencia, line)) {
+            std::istringstream iss(line);
+            if (iss >> asistenciaActual.idCliente >> asistenciaActual.cantInscriptos) {
+                asistenciaActual.CursosInscriptos = new sInscripcion[asistenciaActual.cantInscriptos];
+                for (unsigned int i = 0; i < asistenciaActual.cantInscriptos; ++i) {
+                    if (!(iss >> asistenciaActual.CursosInscriptos[i].idCurso >> asistenciaActual.CursosInscriptos[i].fechaInscripcion)) {
+                        // Manejar un formato de archivo incorrecto
+                        std::cout << "Error en el formato del archivo de asistencias.\n";
+                        delete[] asistenciaActual.CursosInscriptos;  // Liberar la memoria asignada
+                        return -1;
+                    }
+                }
+
+                if (asistenciaActual.idCliente == idCliente) {
+                    // Verificar superposición de horarios
+                    for (unsigned int i = 0; i < asistenciaActual.cantInscriptos; ++i) {
+                        const auto& inscripcion = asistenciaActual.CursosInscriptos[i];
+                        int idClaseExistente = verificarClase(infileasistencia, claseBuscada.nombre.c_str(), claseBuscada.horario);
+                        if (idClaseExistente != NoExisteClase && idClaseExistente == inscripcion.idCurso) {
+                            // Superposición de horarios
+                            delete[] asistenciaActual.CursosInscriptos;  // Liberar la memoria asignada
+                            return idClaseExistente;
+                        }
+                    }
+                }
+
+                delete[] asistenciaActual.CursosInscriptos;  // Liberar la memoria asignada
+            }
+        }
+
+        // No hay superposición de horarios
+        return NoExisteClase;
+}
+*/
+/*
+int verificarSuperposicion(std::fstream& infileasistencia, const sClases& claseBuscada, unsigned int idCliente) {
+        sAsistencia asistenciaActual;
+
+        infileasistencia.clear();  // Reiniciar el estado del archivo
+        infileasistencia.seekg(0, std::ios::beg);  // Mover el puntero al principio del archivo
+
+        std::string line;
+        while (getline(infileasistencia, line)) {
+            std::istringstream iss(line);
+            if (iss >> asistenciaActual.idCliente >> asistenciaActual.cantInscriptos) {
+                asistenciaActual.CursosInscriptos = new sInscripcion[asistenciaActual.cantInscriptos];
+                for (unsigned int i = 0; i < asistenciaActual.cantInscriptos; ++i) {
+                    if (!(iss >> asistenciaActual.CursosInscriptos[i].idCurso >> asistenciaActual.CursosInscriptos[i].fechaInscripcion)) {
+                        // Manejar un formato de archivo incorrecto
+                        std::cout<< "Error en el formato del archivo de asistencias.\n";
+                        delete[] asistenciaActual.CursosInscriptos;  // Liberar la memoria asignada
+                        return -1;
+                    }
+                }
+
+                if (asistenciaActual.idCliente == idCliente) {
+                    // Verificar superposición de horarios
+                    for (const auto& inscripcion : std::begin(asistenciaActual.CursosInscriptos)) {
+                        int idClaseExistente = verificarClase(infileasistencia, claseBuscada.nombre, claseBuscada.horario);
+                        if (idClaseExistente != NoExisteClase && idClaseExistente == inscripcion.idCurso) {
+                            // Superposición de horarios
+                            delete[] asistenciaActual.CursosInscriptos;  // Liberar la memoria asignada
+                            return idClaseExistente;
+                        }
+                    }
+                }
+
+                delete[] asistenciaActual.CursosInscriptos;  // Liberar la memoria asignada
+            }
+        }
+
+        // No hay superposición de horarios
+        return NoExisteClase;
+}
+*/
+/*
+  int verificarSuperposicion(std::fstream& infileasistencia, const sClases& claseBuscada, unsigned int idCliente) {
+        sAsistencia asistenciaActual;
+
+        infileasistencia.clear();  // Reiniciar el estado del archivo
+        infileasistencia.seekg(0, std::ios::beg);  // Mover el puntero al principio del archivo
+
+        std::string line;
+        while (std::getline(infileasistencia, line)) {
+            std::istringstream iss(line);
+            if (iss >> asistenciaActual.idCliente >> asistenciaActual.cantInscriptos) {
+                asistenciaActual.CursosInscriptos->resize(asistenciaActual.cantInscriptos);
+                for (unsigned int i = 0; i < asistenciaActual.cantInscriptos; ++i) {
+                    if (!(iss >> asistenciaActual.CursosInscriptos[i].idCurso >> asistenciaActual.CursosInscriptos[i].fechaInscripcion)) {
+                        // Manejar un formato de archivo incorrecto
+                        cout << "Error en el formato del archivo de asistencias.\n";
+                        return -1;
+                    }
+                }
+
+                if (asistenciaActual.idCliente == idCliente) {
+                    // Verificar superposición de horarios
+                    for (const auto& inscripcion : asistenciaActual.CursosInscriptos) {
+                        int idClaseExistente = verificarClase(claseBuscada.nombre, claseBuscada.horario);
+                        if (idClaseExistente != NoExisteClase && idClaseExistente == inscripcion.idCurso) {
+                            // Superposición de horarios
+                            return idClaseExistente;
+                        }
+                    }
+                }
+            }
+        }
+
+        // No hay superposición de horarios
+        return NoExisteClase;
+}
+*/
 /* eAgrCliente agregarCliente ()
 {
 
 }
 
-eSuperposicion verificarSuperposicion()
-{
-
-}
 
 eCupos verificarCupos()
 {

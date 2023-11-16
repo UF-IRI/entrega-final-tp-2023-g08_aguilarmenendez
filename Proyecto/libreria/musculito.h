@@ -45,12 +45,14 @@ eTipoClase nombreClase(std:: fstream& infileclases);
 int verificarClase(std::fstream& infileclases, const sClases& claseBuscada);
 int idClase(std::fstream& infileclases, const sClases& claseBuscada);
 const int NoExisteClase = -1;
+const int ExisteClase= 1;
 
 /*FUNCIONES DE CLIENTES*/
 eBusCliente BuscarCliente (std:: fstream& infileclientes, const sCliente ClienteBuscado);
 int idCliente(std:: fstream& infileclientes, const sCliente ClienteBuscado);
 eEstado estadoCuota (std:: fstream& infileclientes, sCliente ClienteBuscado);
 eAgrCliente inscribirCliente (sCliente*misClientes, sCliente ClienteNuevo); //CORREGIR
+int verificarSuperposicion(std::fstream& asistenciasFile, const sClases& claseBuscada, unsigned int idCliente);
 
 
 
