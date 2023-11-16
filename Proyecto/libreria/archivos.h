@@ -19,5 +19,6 @@ int tamArrayClientes(sCliente*misClientes);
 void resizeclientes(sCliente **misClientes, u_int *tam);
 
 str convertirString (float horario);
+// hola hello bonjour
 
 #endif // ARCHIVOS_H
