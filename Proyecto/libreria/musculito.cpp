@@ -1,6 +1,7 @@
 #include <fstream>
 #include <sstream>
 #include "musculito.h"
+#include "encabezados.h"
 #include <iostream>
 
 
@@ -186,10 +187,11 @@ int CantInscriptos(sAsistencia *AsistenciasGym, unsigned int idClase) //cantAsis
 
 eCupos verificarCupos(sClases*misClases, unsigned int idClase, sAsistencia*AsistenciasGym)
 {
-        unsigned int cantClases = 10;
+        u_int cantClases = 10;           //para que no tire error
+        u_int cantAsistencias = 10;
         str nombre;
-        unsigned int contador = CantInscriptos(AsistenciasGym, idClase, cantAsistencias);
-        for(unsigned int i=0; i<cantClases; i++)
+        u_int contador = CantInscriptos(AsistenciasGym, idClase, cantAsistencias);
+        for(u_int i=0; i<cantClases; i++)
         {
             if(misClases[i].idClase == idClase)
             {
@@ -234,6 +236,8 @@ eCupos verificarCupos(sClases*misClases, unsigned int idClase, sAsistencia*Asist
                 return eCupos::NoHayCupos;
         }
 }
+
+
 
 
 
