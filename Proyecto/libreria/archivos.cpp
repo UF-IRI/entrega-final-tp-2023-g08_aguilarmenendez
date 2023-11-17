@@ -154,9 +154,39 @@ void leerArchivoClases (ifstream &infileclases)
     return;
 }
 
+eArchivoA leerArchivoAsistencias(ifstream &infileasistencias, Asistencia *asistencias) {
+    if (!infileasistencias.is_open())
+        return eArchivoA::Error;
+
+    // Ir al inicio del archivo
+    infileasistencias.clear();
+    infileasistencias.seekg(0);
+
+    Asistencia *aux = asistencias;
+
+    while (!infileasistencias.eof()) {
+        infileasistencias.read((char *)&aux->idCliente, sizeof(unsigned int));
+        infileasistencias.read((char *)&aux->cantInscriptos, sizeof(unsigned int));
+
+        Inscripcion *yaRegistrado = new Inscripcion[aux->cantInscriptos];
+        Inscripcion *auxinscripciones = yaRegistrado;
+        for (unsigned int i = 0; i < aux->cantInscriptos; i++) {
+            infileasistencias.read((char *)auxinscripciones, sizeof(Inscripcion));
+            auxinscripciones++;
+        }
+        aux->CursosInscriptos = yaRegistrado;
+
+        aux++;
+    }
+
+    return eArchivoA::Exito;
+}
+
+/*
 void leerArchivoAsistencias (ifstream infileasistencias)
 {
-   /* str header;
+
+     str header;
 
     getline(*infileasistencias, header);
 
@@ -177,7 +207,7 @@ void leerArchivoAsistencias (ifstream infileasistencias)
         cout << endl;
     } */
 
-    char buffer [1024];
+   /* char buffer [1024];
     while (infileasistencias.good())
     {
         infileasistencias.read (buffer, sizeof(buffer));
@@ -189,13 +219,15 @@ void leerArchivoAsistencias (ifstream infileasistencias)
     {
         cout << "Error abriendo el archivo binario" << endl;
         return;
-    }*/
+    }
 
     char data[] = "Estas es la data binaria.";
     outfileasistencias.write(data, sizeof (data));
     outfileasistencias.close();
     return ;
+
 }
+*/
 
 void resizeclientes(sCliente** misClientes, u_int *tam)
 {
