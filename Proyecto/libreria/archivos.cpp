@@ -154,7 +154,7 @@ void leerArchivoClases (ifstream &infileclases)
     return;
 }
 
-eArchivoA leerArchivoAsistencias(ifstream &infileasistencias, Asistencia *asistencias) {
+eArchivoA leerArchivoAsistencias(ifstream &infileasistencias) {
     if (!infileasistencias.is_open())
         return eArchivoA::Error;
 
@@ -215,7 +215,7 @@ void leerArchivoAsistencias (ifstream infileasistencias)
     infileasistencias.close ();
 
     ofstream outfileasistencias ("asistencias_1697673600000.dat", ios::binary);
-    /*if (!outfileasistencias.is_open)
+    if (!outfileasistencias.is_open)
     {
         cout << "Error abriendo el archivo binario" << endl;
         return;

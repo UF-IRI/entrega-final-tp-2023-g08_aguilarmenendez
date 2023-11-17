@@ -20,9 +20,9 @@ void leerArchivoClases (ifstream &infileclases);
 void leerArchivoAsistencias (ifstream*infileasistencias);
 int tamArrayClientes(sCliente*misClientes);
 void resizeclientes(sCliente **misClientes, u_int *tam);
-eArchivoA leerArchivoAsistencias(ifstream &infileasistencias, Asistencia *asistencias);
+eArchivoA leerArchivoAsistencias(ifstream &infileasistencias);
+str convertirString(float horario);
 
-str convertirString (float horario);
-// hola hello bonjour
+
 
 #endif // ARCHIVOS_H

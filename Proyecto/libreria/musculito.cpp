@@ -185,7 +185,7 @@ int CantInscriptos(sAsistencia *AsistenciasGym, int idClase, int cantAsistencias
 }
 
 
-eCupos verificarCupos(sClases*misClases, int idClase, Asistencias*AsistenciasGym, int cantClases)
+eCupos verificarCupos(sClases*misClases, int idClase, sAsistencia*AsistenciasGym, int cantClases)
 {
         int cantClases = 10;
         str nombre;
