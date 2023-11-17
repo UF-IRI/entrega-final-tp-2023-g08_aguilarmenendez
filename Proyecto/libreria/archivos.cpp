@@ -163,7 +163,7 @@ eArchivoA leerArchivoAsistencias(ifstream &infileasistencias) {
     infileasistencias.clear();
     infileasistencias.seekg(0);
 
-    sAsistencia *aux = sAsistencia;
+    sAsistencia *aux = new sAsistencia;
 
     while (!infileasistencias.eof()) {
         infileasistencias.read((char *)&aux->idCliente, sizeof(unsigned int));
