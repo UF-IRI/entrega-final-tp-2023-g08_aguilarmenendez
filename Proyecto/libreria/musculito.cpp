@@ -117,7 +117,6 @@ int idClase(std::fstream& infileclases, const sClases& claseBuscada)
         }
 }
 
-// aas
 
 int verificarSuperposicion(std::fstream& infileasistencias, const sClases& claseBuscada, unsigned int idCliente) {
         sAsistencia asistenciaActual;

@@ -57,7 +57,6 @@ const int ExisteClase= 1;
 eBusCliente BuscarCliente (std:: fstream& infileclientes, const sCliente ClienteBuscado);
 int idCliente(std:: fstream& infileclientes, const sCliente ClienteBuscado);
 eEstado estadoCuota (std:: fstream& infileclientes, sCliente ClienteBuscado);
-eAgrCliente inscribirCliente (sCliente*misClientes, sCliente ClienteNuevo); //CORREGIR
 int verificarSuperposicion(std::fstream& asistenciasFile, const sClases& claseBuscada, unsigned int idCliente);
 int CantInscriptos(sAsistencia*AsistenciasGym, int idClase, int cantAsistencias);
 eCupos verificarCupos(sClase*misClases, int idClase, sAsistencia*AsistenciasGym, int cantClases);

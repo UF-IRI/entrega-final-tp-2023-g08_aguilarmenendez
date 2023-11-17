@@ -25,30 +25,6 @@ string convertirIntAString(int estado) {
 
 void leerArchivoClientes (ifstream&infileclientes)
 {
-    /*
-    //MANERA QUE NOS ENSEÑARON EN CLASES
-     str header;
-
-    getline(infileclientes, header);
-
-    while(infileclientes.good()){
-        str line;
-        getline (infileclientes,line);
-
-        char delimiter= ',';
-        str field;
-
-        stringstream iss;
-        iss<<line;
-
-        while (getline (iss, field, delimiter))
-        {
-            cout << field << " ";
-        }
-        cout << endl;
-    }
-*/
-
     sCliente *misClientes = nullptr; //creo array dinamico
     int numClientes = 0;
     int i=0;
@@ -94,27 +70,6 @@ void leerArchivoClientes (ifstream&infileclientes)
 
 void leerArchivoClases (ifstream &infileclases)
 {
-    //MANERA QUE NOS ENSEÑARON EN CLASES
-    /*str header;
-
-    getline(infileclases, header);
-
-    while(infileclases.good()){
-        str line;
-        getline (infileclases,line);
-
-        char delimiter= ',';
-        str field;
-
-        stringstream iss;
-        iss<<line;
-
-        while (getline (iss, field, delimiter))
-        {
-            cout << field << " ";
-        }
-        cout << endl;
-    }*/
 
     sClases *misClases = nullptr; //creo array dinamico
     int numClases = 0;
@@ -183,52 +138,6 @@ eArchivoA leerArchivoAsistencias(ifstream &infileasistencias) {
     return eArchivoA::Exito;
 }
 
-/*
-void leerArchivoAsistencias (ifstream infileasistencias)
-{
-
-     str header;
-
-    getline(*infileasistencias, header);
-
-    while(infileasistencias->good()){
-        str line;
-        getline (*infileasistencias,line);
-
-        char delimiter= ',';
-        str field;
-
-        stringstream iss;
-        iss<<line;
-
-        while (getline (iss, field, delimiter))
-        {
-            cout << field << " ";
-        }
-        cout << endl;
-    } */
-
-   /* char buffer [1024];
-    while (infileasistencias.good())
-    {
-        infileasistencias.read (buffer, sizeof(buffer));
-    }
-    infileasistencias.close ();
-
-    ofstream outfileasistencias ("asistencias_1697673600000.dat", ios::binary);
-    if (!outfileasistencias.is_open)
-    {
-        cout << "Error abriendo el archivo binario" << endl;
-        return;
-    }
-
-    char data[] = "Estas es la data binaria.";
-    outfileasistencias.write(data, sizeof (data));
-    outfileasistencias.close();
-    return ;
-
-}
-*/
 
 void resizeclientes(sCliente** misClientes, u_int *tam)
 {
