@@ -1,4 +1,5 @@
 #include "archivos.h"
+#include "musculito.h"
 
 str convertirString(float horario){
     int horas = static_cast <int>(horario);  //obtengo la parte entera
@@ -162,16 +163,16 @@ eArchivoA leerArchivoAsistencias(ifstream &infileasistencias) {
     infileasistencias.clear();
     infileasistencias.seekg(0);
 
-    Asistencia *aux = asistencias;
+    sAsistencia *aux = sAsistencia;
 
     while (!infileasistencias.eof()) {
         infileasistencias.read((char *)&aux->idCliente, sizeof(unsigned int));
         infileasistencias.read((char *)&aux->cantInscriptos, sizeof(unsigned int));
 
-        Inscripcion *yaRegistrado = new Inscripcion[aux->cantInscriptos];
-        Inscripcion *auxinscripciones = yaRegistrado;
+        sInscripcion *yaRegistrado = new sInscripcion[aux->cantInscriptos];
+        sInscripcion *auxinscripciones = yaRegistrado;
         for (unsigned int i = 0; i < aux->cantInscriptos; i++) {
-            infileasistencias.read((char *)auxinscripciones, sizeof(Inscripcion));
+            infileasistencias.read((char *)auxinscripciones, sizeof(sInscripcion));
             auxinscripciones++;
         }
         aux->CursosInscriptos = yaRegistrado;
