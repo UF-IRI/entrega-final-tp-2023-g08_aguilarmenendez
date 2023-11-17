@@ -168,13 +168,13 @@ int verificarSuperposicion(std::fstream& infileasistencias, const sClases& clase
 }
 */
 
-int CantInscriptos(sAsistencia *AsistenciasGym, int idClase, int cantAsistencias) //cantAsistencias, contador del archivo binario
+int CantInscriptos(sAsistencia *AsistenciasGym, unsigned int idClase) //cantAsistencias, contador del archivo binario
 {
-        int cantAsistencias=10;
+        unsigned int cantAsistencias=10;
         int cont=0;
-        for(int i=0; i<cantAsistencias; i++)
+        for(unsigned int i=0; i<cantAsistencias; i++)
         {
-            for(int j=0; j<AsistenciasGym[i].cantInscriptos; j++)
+            for(unsigned int j=0; j<AsistenciasGym[i].cantInscriptos; j++)
             {
                 if(AsistenciasGym[i].CursosInscriptos[j].idCurso == idClase)
                     cont++;
@@ -184,12 +184,12 @@ int CantInscriptos(sAsistencia *AsistenciasGym, int idClase, int cantAsistencias
 }
 
 
-eCupos verificarCupos(sClases*misClases, int idClase, sAsistencia*AsistenciasGym, int cantClases)
+eCupos verificarCupos(sClases*misClases, unsigned int idClase, sAsistencia*AsistenciasGym)
 {
-        int cantClases = 10;
+        unsigned int cantClases = 10;
         str nombre;
-        int contador = CantInscriptos(AsistenciasGym, idClase, cantAsistencias);
-        for(int i=0; i<cantClases; i++)
+        unsigned int contador = CantInscriptos(AsistenciasGym, idClase, cantAsistencias);
+        for(unsigned int i=0; i<cantClases; i++)
         {
             if(misClases[i].idClase == idClase)
             {
@@ -234,5 +234,6 @@ eCupos verificarCupos(sClases*misClases, int idClase, sAsistencia*AsistenciasGym
                 return eCupos::NoHayCupos;
         }
 }
+
 
 

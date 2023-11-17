@@ -58,8 +58,8 @@ eBusCliente BuscarCliente (std:: fstream& infileclientes, const sCliente Cliente
 int idCliente(std:: fstream& infileclientes, const sCliente ClienteBuscado);
 eEstado estadoCuota (std:: fstream& infileclientes, sCliente ClienteBuscado);
 int verificarSuperposicion(std::fstream& asistenciasFile, const sClases& claseBuscada, unsigned int idCliente);
-int CantInscriptos(sAsistencia*AsistenciasGym, int idClase, int cantAsistencias);
-eCupos verificarCupos(sClase*misClases, int idClase, sAsistencia*AsistenciasGym, int cantClases);
+int CantInscriptos(sAsistencia*AsistenciasGym, unsigned int idClase);
+eCupos verificarCupos(sClases*misClases, int idClase, sAsistencia*AsistenciasGym, int cantClases);
 
 
 

@@ -27,7 +27,6 @@ void leerArchivoClientes (ifstream&infileclientes)
 {
     sCliente *misClientes = nullptr; //creo array dinamico
     int numClientes = 0;
-    int i=0;
     string n;
 
     string linea;
@@ -73,7 +72,6 @@ void leerArchivoClases (ifstream &infileclases)
 
     sClases *misClases = nullptr; //creo array dinamico
     int numClases = 0;
-    int i=0;
     string n;
 
     string linea;
