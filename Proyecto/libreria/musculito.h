@@ -4,6 +4,12 @@
 #include "clientes.h"
 #include "clases.h"
 #include "musculacion.h"
+#define CupoMaxZumba 50
+#define CupoMaxYoga 25
+#define CupoMaxSpinning 45
+#define CupoMaxStretching 40
+#define CupoMaxBoxeo 30
+#define CupoMaxPilates 15
 
 const sCliente ClienteNulo = { 0 , " ", " ", " ", " ", {0,0,0}, 0};
 
@@ -53,8 +59,8 @@ int idCliente(std:: fstream& infileclientes, const sCliente ClienteBuscado);
 eEstado estadoCuota (std:: fstream& infileclientes, sCliente ClienteBuscado);
 eAgrCliente inscribirCliente (sCliente*misClientes, sCliente ClienteNuevo); //CORREGIR
 int verificarSuperposicion(std::fstream& asistenciasFile, const sClases& claseBuscada, unsigned int idCliente);
-
-
+int CantInscriptos(Asistencias*AsistenciasGym, int idClase, int cantAsistencias);
+eCupos verificarCupos(sClase*misClases, int idClase, Asistencias*AsistenciasGym, int cantClases);
 
 
 

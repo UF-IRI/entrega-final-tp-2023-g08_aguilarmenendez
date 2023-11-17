@@ -119,14 +119,14 @@ int idClase(std::fstream& infileclases, const sClases& claseBuscada)
 
 // aas
 
-int verificarSuperposicion(std::fstream& infileasistencia, const sClases& claseBuscada, unsigned int idCliente) {
+int verificarSuperposicion(std::fstream& infileasistencias, const sClases& claseBuscada, unsigned int idCliente) {
         sAsistencia asistenciaActual;
 
-        infileasistencia.clear();  // Reiniciar el estado del archivo
-        infileasistencia.seekg(0, std::ios::beg);  // Mover el puntero al principio del archivo
+        infileasistencias.clear();  // Reiniciar el estado del archivo
+        infileasistencias.seekg(0, std::ios::beg);  // Mover el puntero al principio del archivo
 
         std::string line;
-        while (getline(infileasistencia, line)) {
+        while (getline(infileasistencias, line)) {
             std::istringstream iss(line);
             if (iss >> asistenciaActual.idCliente >> asistenciaActual.cantInscriptos) {
                 asistenciaActual.CursosInscriptos = new sInscripcion[asistenciaActual.cantInscriptos];
@@ -145,7 +145,7 @@ int verificarSuperposicion(std::fstream& infileasistencia, const sClases& claseB
                         const auto& inscripcion = asistenciaActual.CursosInscriptos[i];
 
                         // Modificar la llamada a verificarClase para pasar un objeto sClases
-                        int idClaseExistente = verificarClase(infileasistencia, claseBuscada);
+                        int idClaseExistente = verificarClase(infileasistencias, claseBuscada);
 
                         if (idClaseExistente != NoExisteClase && ExisteClase == inscripcion.idCurso) {
                             // Superposición de horarios
@@ -167,11 +167,73 @@ int verificarSuperposicion(std::fstream& infileasistencia, const sClases& claseB
 {
 
 }
+*/
 
-
-eCupos verificarCupos()
+int CantInscriptos(sAsistencia *AsistenciasGym, int idClase, int cantAsistencias) //cantAsistencias, contador del archivo binario
 {
-
+        int cantAsistencias=10;
+        int cont=0;
+        for(int i=0; i<cantAsistencias; i++)
+        {
+            for(int j=0; j<AsistenciasGym[i].cantInscriptos; j++)
+            {
+                if(AsistenciasGym[i].CursosInscriptos[j].idCurso == idClase)
+                    cont++;
+            }
+        }
+        return cont;
 }
 
-*/
+
+eCupos verificarCupos(sClases*misClases, int idClase, Asistencias*AsistenciasGym, int cantClases)
+{
+        int cantClases = 10;
+        str nombre;
+        int contador = CantInscriptos(AsistenciasGym, idClase, cantAsistencias);
+        for(int i=0; i<cantClases; i++)
+        {
+            if(misClases[i].idClase == idClase)
+            {
+                nombre = misClases[i].nombre;
+            }
+        }
+
+        if(nombre=="Zumba"){
+            if(contador<CupoMaxZumba)
+                return eCupos::HayCupos;
+            else
+                return eCupos::NoHayCupos;
+        }
+        if(nombre=="Pilates"){
+            if(contador<CupoMaxPilates)
+                return eCupos::HayCupos;
+            else
+                return eCupos::NoHayCupos;
+        }
+        if(nombre=="Spinning"){
+            if(contador<CupoMaxSpinning)
+                return eCupos::HayCupos;
+            else
+                return eCupos::NoHayCupos;
+        }
+        if(nombre=="Yoga"){
+            if(contador<CupoMaxYoga)
+                return eCupos::HayCupos;
+            else
+                return eCupos::NoHayCupos;
+        }
+        if(nombre=="Boxeo"){
+            if(contador<CupoMaxBoxeo)
+                return eCupos::HayCupos;
+            else
+                return eCupos::NoHayCupos;
+        }
+        if(nombre=="Stretching"){
+            if(contador<CupoMaxStretching)
+                return eCupos::HayCupos;
+            else
+                return eCupos::NoHayCupos;
+        }
+}
+
+
